@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>fib(n) — быстрое вычисление BigInt</title>
+  <style>
+    body   { font-family: system-ui, sans-serif; margin: 40px; }
+    label  { display: block; margin: .5rem 0 .25rem; }
+    input  { font-size: 1rem; width: 100px; }
+    button { margin-top: .75rem; font-size: 1rem; }
+    #out   { margin-top: 1rem; font-weight: 600; word-break: break-all; }
+  </style>
+</head>
+<body>
+  <h1>n-е число Фибоначчи (BigInt)</h1>
+
+  <form id="fibForm">
+    <label for="n">Введите n (целое ≥ 0):</label>
+    <input type="number" id="n" step="1" min="0" required>
+    <button type="submit">Вычислить</button>
+  </form>
+
+  <div id="out"></div>
+
+  <script>
+    function fibPair(k) {
+      if (k === 0) return [0n, 1n];
+      const [a, b] = fibPair(Math.floor(k / 2));
+      const c = a * (2n * b - a);
+      const d = a * a + b * b;
+      if (k % 2 === 0) {
+        return [c, d];
+      } else {
+        return [d, c + d];
+      }
+    }
+
+    function fib(n) {
+      if (!Number.isInteger(n) || n < 0) {
+        throw new TypeError('n должно быть целым числом ≥ 0');
+      }
+      return fibPair(n)[0];
+    }
+
+    document.getElementById('fibForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const raw = Number(document.getElementById('n').value);
+      try {
+        const result = fib(raw);
+        document.getElementById('out').textContent =
+          `fib(${raw}) = ${result}`;
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+
+    console.log('fib(0)   =', fib(0));
+    console.log('fib(100) =', fib(100));
+  </script>
+</body>
+</html>

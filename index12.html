@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>sum(...args) — сумма аргументов</title>
+  <style>
+    body   { font-family: system-ui, sans-serif; margin: 40px; }
+    label  { display: block; margin: .5rem 0 .25rem; }
+    input  { font-size: 1rem; width: 300px; }
+    button { margin-top: .75rem; font-size: 1rem; }
+    #out   { margin-top: 1rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Функция sum(...args)</h1>
+
+  <form id="sumForm">
+    <label for="args">Введите аргументы (через пробел или запятую):</label>
+    <input type="text" id="args" placeholder="например: 1 2 3 или 1,2,3" />
+    <button type="submit">Суммировать</button>
+  </form>
+
+  <div id="out"></div>
+
+  <script>
+    function sum(...nums) {
+      return nums.reduce((acc, v) => acc + v, 0);
+    }
+
+    document.getElementById('sumForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const raw = document.getElementById('args').value.trim();
+      if (raw === '') {
+        document.getElementById('out').textContent = `sum() => 0`;
+        return;
+      }
+
+      const parts = raw.split(/[\s,]+/);
+      const nums = parts.map(p => Number(p));
+
+      for (let i = 0; i < nums.length; i++) {
+        if (!Number.isFinite(nums[i])) {
+          alert(`Некорректное значение: «${parts[i]}»`);
+          return;
+        }
+      }
+
+      const result = sum(...nums);
+      document.getElementById('out').textContent =
+        `sum(${parts.join(', ')}) => ${result}`;
+    });
+
+    console.log('sum()        =>', sum());
+    console.log('sum(1)       =>', sum(1));
+    console.log('sum(1, 2)    =>', sum(1, 2));
+    console.log('sum(1, 2, 3) =>', sum(1, 2, 3));
+  </script>
+</body>
+</html>

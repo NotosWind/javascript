@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>addBlackSpot(obj)</title>
+  <style>
+    body   { font-family: system-ui, sans-serif; margin: 40px; }
+    label  { display: block; margin: .5rem 0 .25rem; }
+    input  { font-size: 1rem; width: 400px; }
+    button { margin-top: .75rem; font-size: 1rem; }
+    #out   { margin-top: 1rem; font-family: monospace; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>Функция addBlackSpot(obj)</h1>
+
+  <form id="spotForm">
+    <label for="data">Введите свойства (формат: key:value; key:value …):</label>
+    <input type="text" id="data" placeholder="a:1; b:foo">
+    <button type="submit">Добавить BlackSpot</button>
+  </form>
+
+  <div id="out"></div>
+
+  <script>
+    function addBlackSpot(obj) {
+      if (obj === null || typeof obj !== 'object') {
+        throw new TypeError('Ожидается объект');
+      }
+      obj[Symbol.for('blackSpot')] = true;
+      return obj;
+    }
+
+    document.getElementById('spotForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const raw = document.getElementById('data').value.trim();
+
+      const obj = {};
+      if (raw !== '') {
+        const pairs = raw.split(/\s*;\s*/);
+        for (const pair of pairs) {
+          if (!pair) continue;
+          const [k, v] = pair.split(/\s*:\s*/);
+          obj[k] = isNaN(v) ? v : Number(v);
+        }
+      }
+
+      const res = addBlackSpot(obj);
+
+      const symKey = Symbol.for('blackSpot');
+      const visible = { ...res, [symKey]: res[symKey] };
+      document.getElementById('out').textContent =
+        JSON.stringify(visible, null, 2);
+    });
+
+    console.log('addBlackSpot({}) =>', addBlackSpot({}));
+    console.log(
+      'addBlackSpot({x:42}).hasOwnProperty(Symbol.for("blackSpot")) =>',
+      addBlackSpot({ x: 42 }).hasOwnProperty(Symbol.for('blackSpot'))
+    );
+  </script>
+</body>
+</html>

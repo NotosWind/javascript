@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>isLeapYear(year)</title>
+  <style>
+    body   { font-family: system-ui, sans-serif; margin: 40px; }
+    label  { display: block; margin: .5rem 0 .25rem; }
+    input  { font-size: 1rem; width: 120px; }
+    button { margin-top: .75rem; font-size: 1rem; }
+    #out   { margin-top: 1rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Проверка года на&nbsp;високосность</h1>
+
+  <form id="leapForm">
+    <label for="year">Введите год (целое число):</label>
+    <input type="number" id="year" step="1" required>
+    <button type="submit">Проверить</button>
+  </form>
+
+  <div id="out"></div>
+
+  <script>
+    function isLeapYear(year) {
+      if (!Number.isInteger(year)) {
+        throw new TypeError('Год должен быть целым числом');
+      }
+      return (year % 400 === 0) || (year % 4 === 0 && year % 100 !== 0);
+    }
+
+    document.getElementById('leapForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const year = Number(document.getElementById('year').value);
+
+      try {
+        const result = isLeapYear(year);
+        document.getElementById('out').textContent =
+          `${year} → ${result ? 'високосный' : 'обычный'} год (результат: ${result})`;
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+
+  </script>
+</body>
+</html>
