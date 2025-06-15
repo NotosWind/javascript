@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Ввод числа</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 40px; }
+    a { font-size: 1.1rem; text-decoration: none; color: #0645ad; }
+    a:hover { text-decoration: underline; }
+  </style>
+  <script>
+    function checkNumber() {
+      while (true) {
+        const input = prompt('Введите число больше 100:', '');
+        if (input === null) {
+          return confirm(
+            'Вы отменили ввод. Перейти на главную страницу?'
+          );
+        }
+
+        const num = Number(input);
+        if (!Number.isNaN(num) && num > 100) {
+          return true;
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <a href="index.html" onclick="return checkNumber();">Получить число</a>
+</body>
+</html>

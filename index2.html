@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Считать ворон</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 40px; }
+    label, input, button { font-size: 1rem; }
+    button { margin-left: 0.5rem; }
+  </style>
+</head>
+<body>
+  <h1>Считать ворон</h1>
+
+  <form id="crowForm">
+    <label for="num">Сколько ворон на ветке?</label>
+    <input type="number" id="num" name="num" min="0" required />
+    <button type="submit">Считать</button>
+  </form>
+
+  <script>
+    document.getElementById('crowForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const raw = document.getElementById('num').value.trim();
+
+      if (raw === '') {
+        alert('Введите количество ворон');
+        return;
+      }
+      const num = Math.abs(parseInt(raw, 10));
+      if (isNaN(num)) {
+        alert('Введите корректное целое число');
+        return;
+      }
+
+      let word;
+      const lastTwo = num % 100;
+
+      if (lastTwo >= 11 && lastTwo <= 14) {
+        word = 'ворон';
+      } else {
+        switch (num % 10) {
+          case 1:
+            word = 'ворона';
+            break;
+          case 2:
+          case 3:
+          case 4:
+            word = 'вороны';
+            break;
+          default:
+            word = 'ворон';
+        }
+      }
+
+      alert(`На ветке сидит ${num} ${word}`);
+    });
+  </script>
+</body>
+</html>

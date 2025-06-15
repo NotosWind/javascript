@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Таблица</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 40px; }
+    input, button { font-size: 1rem; }
+    button { margin-left: 0.5rem; }
+    small { color: #555; display: block; margin-top: .5rem; }
+  </style>
+  <script>
+    function drawTable(event) {
+      event.preventDefault();
+
+      const raw = document.getElementById('rows').value.trim();
+      if (raw === '') {
+        alert('Введите количество строк (целое число ≥ 1)');
+        return;
+      }
+
+      const rows = Math.floor(Number(raw));
+      if (!Number.isFinite(rows) || rows < 1) {
+        alert('Количество строк должно быть натуральным числом ≥ 1');
+        return;
+      }
+
+      const pattern = ['dog', 'dog', 'dog', 'cat', 'cat'];
+      let index = 0;
+
+      console.clear();
+      for (let r = 0; r < rows; r++) {
+        const line = [];
+        for (let c = 0; c < 6; c++, index++) {
+          line.push(pattern[index % pattern.length]);
+        }
+        console.log(line.join('\t'));
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('tableForm').addEventListener('submit', drawTable);
+    });
+  </script>
+</head>
+<body>
+  <h1>Таблица</h1>
+
+  <form id="tableForm">
+    <label for="rows">Число строк:</label>
+    <input type="number" id="rows" name="rows" min="1" required>
+    <button type="submit">Рисовать</button>
+  </form>
+
+  <small>Откройте консоль браузера, чтобы увидеть результат.</small>
+</body>
+</html>

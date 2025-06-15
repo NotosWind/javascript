@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Простые числа</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 40px; }
+    input, button { font-size: 1rem; }
+    button { margin-left: 0.5rem; }
+    #result { margin-top: 1rem; white-space: pre-wrap; }
+  </style>
+  <script>
+    function getPrimes(n) {
+      const sieve = new Array(n + 1).fill(true);
+      sieve[0] = sieve[1] = false;
+
+      for (let i = 2; i * i <= n; i++) {
+        if (sieve[i]) {
+          for (let j = i * i; j <= n; j += i) {
+            sieve[j] = false;
+          }
+        }
+      }
+      return sieve.reduce((primes, isPrime, i) => {
+        if (isPrime) primes.push(i);
+        return primes;
+      }, []);
+    }
+
+    function handleSubmit(event) {
+      event.preventDefault();
+
+      const raw = document.getElementById('n').value.trim();
+      if (raw === '') {
+        alert('Введите число n (≥ 2)');
+        return;
+      }
+
+      const n = Math.floor(Number(raw));
+      if (!Number.isFinite(n) || n < 2) {
+        alert('n должно быть натуральным числом, не меньше 2');
+        return;
+      }
+
+      const primes = getPrimes(n);
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = `Простые числа от 2 до ${n}:\n` + primes.join(', ');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('primeForm').addEventListener('submit', handleSubmit);
+    });
+  </script>
+</head>
+<body>
+  <h1>Простые числа</h1>
+
+  <form id="primeForm">
+    <label for="n">Введите n (≥ 2):</label>
+    <input type="number" id="n" name="n" min="2" required>
+    <button type="submit">Найти</button>
+  </form>
+
+  <div id="result"></div>
+</body>
+</html>
