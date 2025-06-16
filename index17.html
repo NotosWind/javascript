@@ -21,9 +21,9 @@
     <button type="submit">Усечь</button>
   </form>
   <div id="out"></div>
-  <script src="lab2.js"></script>
-  <script>
+  <script type="module">
     "use strict";
+    import { truncate } from './lab3.js';
     document.getElementById('trForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const text = document.getElementById('text').value;

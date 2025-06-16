@@ -19,9 +19,9 @@
     <button type="submit">Проверить</button>
   </form>
   <div id="out"></div>
-  <script src="lab2.js"></script>
-  <script>
+  <script type="module">
     "use strict";
+    import { checkSpam } from './lab3.js';
     document.getElementById('spamForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const text = document.getElementById('str').value;
