@@ -70,27 +70,22 @@
       this.#price = v;
     }
 
-    /* --- метод экземпляра --- */
     show() {
       console.log(`${this.title} — ${this.price}₽`);
     }
 
-    /* --- статический метод сравнения --- */
     static compare(a, b) {
       return a.pubYear - b.pubYear;
     }
   }
 
-  // Хранилище добавленных книг
   const books = [];
 
-  // DOM-элементы
   const form = document.getElementById('addForm');
   const table = document.getElementById('bookTable');
   const tbody = table.querySelector('tbody');
   const sortBtn = document.getElementById('sortBtn');
 
-  // Функция перерисовки таблицы
   function renderTable() {
     if (books.length === 0) {
       table.hidden = true;
@@ -105,7 +100,6 @@
     }
   }
 
-  // Добавление книги
   form.addEventListener('submit', e => {
     e.preventDefault();
     try {
@@ -123,7 +117,6 @@
     }
   });
 
-  // Сортировка книг
   sortBtn.addEventListener('click', () => {
     books.sort(Book.compare);
     renderTable();

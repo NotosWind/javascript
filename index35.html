@@ -20,22 +20,18 @@
     const select = document.getElementById('genre');
     const out    = document.getElementById('out');
 
-    /* функция-обновление */
     function showCurrent() {
       out.textContent =
         `${select.value}  —  ${select.options[select.selectedIndex].text}`;
     }
 
-    /* начальный вывод */
     showCurrent();
 
-    /* добавляем новую опцию и сразу выбираем её */
     const opt = new Option('Классика', 'Classic');
     select.add(opt);
     select.value = 'Classic';
-    showCurrent();        // обновляем после добавления
+    showCurrent();
 
-    /* обновлять вывод при каждом изменении выбора */
     select.addEventListener('change', showCurrent);
   </script>
 </body>

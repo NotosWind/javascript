@@ -33,11 +33,6 @@
   <div id="result"></div>
 
   <script type="module">
-    /**
-     * Возвращает true, если obj не имеет собственных свойств (строковых и символьных).
-     * @param {object} obj
-     * @returns {boolean}
-     */
     function isEmpty(obj) {
       if (obj === null || typeof obj !== 'object') {
         throw new TypeError('Ожидается объект');
@@ -67,7 +62,6 @@
           }
           obj = new Function('return ' + code)();
         } else {
-          // варианты {} и {[Symbol()]: true}
           obj = new Function('return ' + sel)();
         }
 
