@@ -19,20 +19,21 @@
   </form>
   <div id="out"></div>
 
-  <script src="lab2.js"></script>
-  <script>
+  <script type="module">
     "use strict";
+    import { getDecimal } from './lab3.js';
 
     document.getElementById('decForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const raw = document.getElementById('num').value;
-      try {
-        const dec = getDecimalFromString(raw);
-        document.getElementById('out').textContent =
-          `getDecimal(${raw}) => ${dec}`;
-      } catch (err) {
-        alert(err.message);
+      const num = Number(raw);
+      if (!raw || !Number.isFinite(num)) {
+        alert('Некорректный ввод');
+        return;
       }
+      const dec = getDecimal(num);
+      document.getElementById('out').textContent =
+        `getDecimal(${raw}) => ${dec}`;
     });
   </script>
 </body>

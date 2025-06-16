@@ -19,9 +19,9 @@
     <button type="submit">Преобразовать</button>
   </form>
   <div id="out"></div>
-  <script src="lab2.js"></script>
-  <script>
+  <script type="module">
     "use strict";
+    import { camelize } from './lab3.js';
     document.getElementById('camForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const text = document.getElementById('str').value.trim();

@@ -19,9 +19,9 @@
     <button type="submit">Нормализовать</button>
   </form>
   <div id="out"></div>
-  <script src="lab2.js"></script>
-  <script>
+  <script type="module">
     "use strict";
+    import { normalizeUrl } from './lab3.js';
     document.getElementById('urlForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const url = document.getElementById('url').value.trim();

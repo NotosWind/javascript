@@ -19,9 +19,9 @@
     <button type="submit">Получить</button>
   </form>
   <div id="out"></div>
-  <script src="lab2.js"></script>
-  <script>
+  <script type="module">
     "use strict";
+    import { unique } from './lab3.js';
     document.getElementById('uniqForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const parts = document.getElementById('arr').value.trim().split(/\s+/);
