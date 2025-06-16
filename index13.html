@@ -22,14 +22,9 @@
 
   <div id="out"></div>
 
+  <script src="lab2.js"></script>
   <script>
-    function addBlackSpot(obj) {
-      if (obj === null || typeof obj !== 'object') {
-        throw new TypeError('Ожидается объект');
-      }
-      obj[Symbol.for('blackSpot')] = true;
-      return obj;
-    }
+    "use strict";
 
     document.getElementById('spotForm').addEventListener('submit', function(e) {
       e.preventDefault();

@@ -19,10 +19,9 @@
     <button type="submit">Отсортировать</button>
   </form>
   <div id="out"></div>
+  <script src="lab2.js"></script>
   <script>
-    function arrReverseSorted(arr) {
-      return [...arr].sort((a, b) => b - a);
-    }
+    "use strict";
     document.getElementById('arrForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const parts = document.getElementById('arr').value.trim().split(/\s+/);

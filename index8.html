@@ -22,13 +22,9 @@
 
   <div id="out"></div>
 
+  <script src="lab2.js"></script>
   <script>
-    function isLeapYear(year) {
-      if (!Number.isInteger(year)) {
-        throw new TypeError('Год должен быть целым числом');
-      }
-      return (year % 400 === 0) || (year % 4 === 0 && year % 100 !== 0);
-    }
+    "use strict";
 
     document.getElementById('leapForm').addEventListener('submit', (e) => {
       e.preventDefault();
