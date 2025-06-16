@@ -19,10 +19,9 @@
     <button type="submit">Нормализовать</button>
   </form>
   <div id="out"></div>
+  <script src="lab2.js"></script>
   <script>
-    function normalizeUrl(url) {
-      return 'https://' + url.replace(/^https?:\/\//, '');
-    }
+    "use strict";
     document.getElementById('urlForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const url = document.getElementById('url').value.trim();

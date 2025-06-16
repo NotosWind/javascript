@@ -22,14 +22,9 @@
 
   <div id="out"></div>
 
+  <script src="lab2.js"></script>
   <script>
-    const sumTo = new Function('n', `
-      n = Number(n);
-      if (!Number.isInteger(n) || n < 1)
-        throw new Error('n должно быть натуральным числом (≥1)');
-      /* Формула Гаусса: 1+2+…+n = n*(n+1)/2 */
-      return n * (n + 1) / 2;
-    `);
+    "use strict";
 
     document.getElementById('sumForm').addEventListener('submit', (e) => {
       e.preventDefault();
