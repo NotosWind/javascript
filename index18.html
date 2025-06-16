@@ -19,13 +19,9 @@
     <button type="submit">Преобразовать</button>
   </form>
   <div id="out"></div>
+  <script src="lab2.js"></script>
   <script>
-    function ucFirst(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1);
-    }
-    function camelize(str) {
-      return str.split('-').map((w, i) => i ? ucFirst(w) : w).join('');
-    }
+    "use strict";
     document.getElementById('camForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const text = document.getElementById('str').value.trim();

@@ -22,25 +22,9 @@
 
   <div id="out"></div>
 
+  <script src="lab2.js"></script>
   <script>
-    function fibPair(k) {
-      if (k === 0) return [0n, 1n];
-      const [a, b] = fibPair(Math.floor(k / 2));
-      const c = a * (2n * b - a);
-      const d = a * a + b * b;
-      if (k % 2 === 0) {
-        return [c, d];
-      } else {
-        return [d, c + d];
-      }
-    }
-
-    function fib(n) {
-      if (!Number.isInteger(n) || n < 0) {
-        throw new TypeError('n должно быть целым числом ≥ 0');
-      }
-      return fibPair(n)[0];
-    }
+    "use strict";
 
     document.getElementById('fibForm').addEventListener('submit', function(e) {
       e.preventDefault();

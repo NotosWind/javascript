@@ -19,11 +19,9 @@
     <button type="submit">Проверить</button>
   </form>
   <div id="out"></div>
+  <script src="lab2.js"></script>
   <script>
-    function checkSpam(str) {
-      const s = str.toLowerCase();
-      return s.includes('viagra') || s.includes('xxx');
-    }
+    "use strict";
     document.getElementById('spamForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const text = document.getElementById('str').value;

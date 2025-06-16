@@ -19,18 +19,9 @@
   </form>
   <div id="out"></div>
 
+  <script src="lab2.js"></script>
   <script>
-    function getDecimalFromString(raw) {
-      raw = raw.trim();
-      if (!/^-?\d+(\.\d+)?$/.test(raw)) {
-        throw new Error('Неверный формат числа');
-      }
-      const num = Number(raw);
-      const match = raw.match(/\.(\d+)$/);
-      const precision = match ? match[1].length : 0;
-      const frac = ((num % 1) + 1) % 1;
-      return Number(frac.toFixed(precision));
-    }
+    "use strict";
 
     document.getElementById('decForm').addEventListener('submit', function(e) {
       e.preventDefault();
