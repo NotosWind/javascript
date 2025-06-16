@@ -26,17 +26,9 @@
 
   <div id="out"></div>
 
+  <script src="lab2.js"></script>
   <script>
-    function compare(x) {
-      return function(y) {
-        if (!Number.isInteger(y)) {
-          throw new TypeError('y должно быть целым числом');
-        }
-        if (y > x)  return true;
-        if (y < x)  return false;
-        return null;
-      };
-    }
+    "use strict";
 
     document.getElementById('compareForm').addEventListener('submit', function(e) {
       e.preventDefault();

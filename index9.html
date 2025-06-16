@@ -22,15 +22,9 @@
 
   <div id="out"></div>
 
+  <script src="lab2.js"></script>
   <script>
-    function factorial(n) {
-      if (!Number.isInteger(n) || n < 0) {
-        throw new TypeError('n должно быть целым числом ≥ 0');
-      }
-      return n === 0
-        ? 1n
-        : BigInt(n) * factorial(n - 1);
-    }
+    "use strict";
 
     document.getElementById('factForm').addEventListener('submit', function(e) {
       e.preventDefault();

@@ -26,6 +26,7 @@
   <div id="equal"></div>
 
 <script type="module">
+  "use strict";
   function deepEqual(a, b) {
     if (a === b) return true;
     if (typeof a !== 'object' || a === null ||
@@ -64,6 +65,7 @@
 
       const obj2 = JSON.parse(json);
 
+      const isEq = deepEqual(obj, obj2);
       equalEl.textContent = `obj и obj2 ${isEq ? 'эквивалентны (true)' : 'не равны (false)'}`;
       console.log('obj2:', obj2, 'equal?', isEq);
     } catch (err) {
