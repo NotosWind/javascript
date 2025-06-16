@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Select</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 40px; }
+    #out { margin-top: 1rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <select id="genre">
+    <option value="Rock">Рок</option>
+    <option value="Blues" selected>Блюз</option>
+  </select>
+
+  <div id="out"></div>
+
+  <script>
+    const select = document.getElementById('genre');
+    const out    = document.getElementById('out');
+
+    /* функция-обновление */
+    function showCurrent() {
+      out.textContent =
+        `${select.value}  —  ${select.options[select.selectedIndex].text}`;
+    }
+
+    /* начальный вывод */
+    showCurrent();
+
+    /* добавляем новую опцию и сразу выбираем её */
+    const opt = new Option('Классика', 'Classic');
+    select.add(opt);
+    select.value = 'Classic';
+    showCurrent();        // обновляем после добавления
+
+    /* обновлять вывод при каждом изменении выбора */
+    select.addEventListener('change', showCurrent);
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Div to textarea</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 40px; }
+    #view { padding: 4px; border: 1px solid #ccc; min-height: 60px; white-space: pre-wrap; }
+    textarea { width: 100%; height: 100px; }
+  </style>
+</head>
+<body>
+  <div id="view">Редактируемый текст</div>
+  <script>
+    const view = document.getElementById('view');
+    let area;
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey && e.key.toLowerCase() === 'e') {
+        e.preventDefault();
+        if (area) return;
+        area = document.createElement('textarea');
+        area.value = view.innerHTML;
+        view.replaceWith(area);
+        area.focus();
+      } else if (e.ctrlKey && e.key.toLowerCase() === 's') {
+        if (!area) return;
+        e.preventDefault();
+        view.innerHTML = area.value;
+        area.replaceWith(view);
+        area = null;
+      } else if (e.key === 'Escape' && area) {
+        area.replaceWith(view);
+        area = null;
+      }
+    });
+  </script>
+</body>
+</html>

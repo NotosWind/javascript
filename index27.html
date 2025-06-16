@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Сериализация объекта в JSON</title>
+  <style>
+    body   { font-family: system-ui, sans-serif; margin: 40px; }
+    label  { display:block; margin:.5rem 0 .25rem; }
+    textarea { font-size: 1rem; width:100%; height:5rem; }
+    button { margin-top:.6rem; font-size:1rem; padding:.4rem .8rem; }
+    pre    { background:#f6f8fa; padding:.7rem 1rem; border-radius:6px; white-space:pre-wrap; }
+    #equal { font-weight:600; margin-top:1rem; }
+  </style>
+</head>
+<body>
+  <h1>Преобразование объекта ⇆ JSON</h1>
+
+  <label for="objSrc">Введите JS-литерал объекта:</label>
+  <textarea id="objSrc" placeholder="{ a:1, b:{ c:2 } }"></textarea>
+  <button id="runBtn">Преобразовать</button>
+
+  <h2>JSON-строка (отступ 2)</h2>
+  <pre id="jsonOut"></pre>
+
+  <h2>Результат проверки равенства</h2>
+  <div id="equal"></div>
+
+<script type="module">
+  function deepEqual(a, b) {
+    if (a === b) return true;
+    if (typeof a !== 'object' || a === null ||
+        typeof b !== 'object' || b === null) return false;
+
+    if (Array.isArray(a) !== Array.isArray(b)) return false;
+
+    const keysA = Reflect.ownKeys(a), keysB = Reflect.ownKeys(b);
+    if (keysA.length !== keysB.length) return false;
+
+    for (const k of keysA) {
+      if (!deepEqual(a[k], b[k])) return false;
+    }
+    return true;
+  }
+
+  function parseLiteral(code) {
+    return Function('"use strict"; return (' + code + ')')();
+  }
+
+  const srcArea = document.getElementById('objSrc');
+  const btn     = document.getElementById('runBtn');
+  const outJSON = document.getElementById('jsonOut');
+  const equalEl = document.getElementById('equal');
+
+  btn.addEventListener('click', () => {
+    const code = srcArea.value.trim();
+    if (!code) { alert('Введите объект!'); return; }
+
+    try {
+      const obj  = parseLiteral(code);
+      const json = JSON.stringify(obj, null, 2);
+      console.log('JSON-строка:\\n', json);
+
+      outJSON.textContent = json;
+
+      const obj2 = JSON.parse(json);
+
+      equalEl.textContent = `obj и obj2 ${isEq ? 'эквивалентны (true)' : 'не равны (false)'}`;
+      console.log('obj2:', obj2, 'equal?', isEq);
+    } catch (err) {
+      alert('Ошибка: ' + err.message);
+    }
+  });
+
+  const demo = { x: 1, y: { z: [2, 3] }, [Symbol('id')]: 7 };
+  const demoJSON = JSON.stringify(demo, null, 2);
+  console.log('Демо-объект → JSON (отступ 2):\\n', demoJSON);
+  console.log('Равенство demo & JSON.parse(demoJSON) →',
+              deepEqual(demo, JSON.parse(demoJSON)));
+</script>
+</body>
+</html>

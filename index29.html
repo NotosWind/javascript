@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>formatDate(date)</title>
+  <style>
+    body   { font-family: system-ui, sans-serif; margin: 40px; }
+    label  { display: block; margin: .5rem 0 .25rem; }
+    input  { font-size: 1rem; width: 200px; }
+    button { margin-top: .75rem; font-size: 1rem; }
+    #out   { margin-top: 1rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Форматирование даты</h1>
+  <form id="dateForm">
+    <label for="date">Введите дату:</label>
+    <input type="date" id="date">
+    <button type="submit">Форматировать</button>
+  </form>
+  <div id="out"></div>
+  <script>
+    function formatDate(date) {
+      const d = String(date.getDate()).padStart(2, '0');
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const y = String(date.getFullYear()).slice(-2);
+      return `${d}.${m}.${y}`;
+    }
+    document.getElementById('dateForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const raw = document.getElementById('date').value;
+      if (!raw) {
+        alert('Введите дату');
+        return;
+      }
+      const res = formatDate(new Date(raw));
+      document.getElementById('out').textContent = res;
+    });
+  </script>
+</body>
+</html>

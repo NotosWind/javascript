@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Book.show()</title>
+  <style>
+    body   { font-family: system-ui, sans-serif; margin: 40px; }
+    label  { display: block; margin: .5rem 0 .25rem; }
+    input  { font-size: 1rem; width: 220px; }
+    button { margin-top: .75rem; font-size: 1rem; }
+    #out   { margin-top: 1rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Класс Book</h1>
+  <form id="bookForm">
+    <label for="title">Название:</label>
+    <input type="text" id="title">
+    <label for="year">Год издания:</label>
+    <input type="number" id="year" step="1">
+    <label for="price">Цена:</label>
+    <input type="number" id="price" step="0.01">
+    <button type="submit">Создать</button>
+  </form>
+  <div id="out"></div>
+  <script>
+    class Book {
+      constructor(title, pubYear, price) {
+        this.title = title;
+        this.pubYear = pubYear;
+        this.price = price;
+      }
+      show() {
+        console.log(this.title, this.price);
+      }
+    }
+    document.getElementById('bookForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const title = document.getElementById('title').value;
+      const year = Number(document.getElementById('year').value);
+      const price = Number(document.getElementById('price').value);
+      const b = new Book(title, year, price);
+      b.show();
+      document.getElementById('out').textContent =
+        `${b.title} (${b.pubYear}) — ${b.price}`;
+    });
+  </script>
+</body>
+</html>

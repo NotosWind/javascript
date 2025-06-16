@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>unique(arr)</title>
+  <style>
+    body   { font-family: system-ui, sans-serif; margin: 40px; }
+    label  { display: block; margin: .5rem 0 .25rem; }
+    input  { font-size: 1rem; width: 220px; }
+    button { margin-top: .75rem; font-size: 1rem; }
+    #out   { margin-top: 1rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Уникальные значения</h1>
+  <form id="uniqForm">
+    <label for="arr">Значения через пробел:</label>
+    <input type="text" id="arr" placeholder="a b c">
+    <button type="submit">Получить</button>
+  </form>
+  <div id="out"></div>
+  <script>
+    function unique(arr) {
+      return [...new Set(arr)];
+    }
+    document.getElementById('uniqForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const parts = document.getElementById('arr').value.trim().split(/\s+/);
+      const res = unique(parts);
+      document.getElementById('out').textContent =
+        `unique([${parts.join(', ')}]) => [${res.join(', ')}]`;
+    });
+  </script>
+</body>
+</html>

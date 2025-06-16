@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>getSecondsToday()</title>
+  <style>
+    body   { font-family: system-ui, sans-serif; margin: 40px; }
+    button { font-size: 1rem; }
+    #out   { margin-top: 1rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Секунды с&nbsp;начала дня</h1>
+  <button id="btn">Получить</button>
+  <div id="out"></div>
+  <script>
+    function getSecondsToday() {
+      const now = new Date();
+      return Math.floor((now - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 1000);
+    }
+    document.getElementById('btn').onclick = function() {
+      document.getElementById('out').textContent = getSecondsToday();
+    };
+  </script>
+</body>
+</html>

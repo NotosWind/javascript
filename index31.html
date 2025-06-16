@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>createTree(obj) — вложенный список</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 40px; }
+    ul  { list-style-type: circle; margin-left: 1.25rem; }
+  </style>
+</head>
+<body>
+  <h1>Дерево из объекта</h1>
+  <div id="container"></div>
+
+  <script>
+    const data = {
+      'Рыбы': {
+        'форель': {},
+        'лосось': {}
+      },
+      'Деревья': {
+        'Огромные': {
+          'секвойя': {},
+          'дуб': {}
+        },
+        'Цветковые': {
+          'яблоня': {},
+          'магнолия': {}
+        }
+      }
+    };
+
+    function createTree(container, obj) {
+      if (!Object.keys(obj).length) return;
+
+      const ul = document.createElement('ul');
+
+      for (const key in obj) {
+        const li = document.createElement('li');
+        li.textContent = key;
+
+        createTree(li, obj[key]);
+
+        ul.appendChild(li);
+      }
+
+      container.appendChild(ul);
+    }
+
+    const container = document.getElementById('container');
+    createTree(container, data);
+  </script>
+</body>
+</html>

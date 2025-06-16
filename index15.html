@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>normalizeUrl(url)</title>
+  <style>
+    body   { font-family: system-ui, sans-serif; margin: 40px; }
+    label  { display: block; margin: .5rem 0 .25rem; }
+    input  { font-size: 1rem; width: 220px; }
+    button { margin-top: .75rem; font-size: 1rem; }
+    #out   { margin-top: 1rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Нормализация URL</h1>
+  <form id="urlForm">
+    <label for="url">Введите адрес:</label>
+    <input type="text" id="url">
+    <button type="submit">Нормализовать</button>
+  </form>
+  <div id="out"></div>
+  <script>
+    function normalizeUrl(url) {
+      return 'https://' + url.replace(/^https?:\/\//, '');
+    }
+    document.getElementById('urlForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const url = document.getElementById('url').value.trim();
+      if (!url) {
+        alert('Введите адрес');
+        return;
+      }
+      document.getElementById('out').textContent =
+        `normalizeUrl('${url}') => '${normalizeUrl(url)}'`;
+    });
+  </script>
+</body>
+</html>

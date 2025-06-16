@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>getDecimal(num) — точный вывод</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 40px; }
+    label { display: block; margin: .5rem 0 .25rem; }
+    input, button { font-size: 1rem; }
+    #out { margin-top: 1rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Дробная часть числа</h1>
+  <form id="decForm">
+    <label for="num">Введите число:</label>
+    <input type="text" id="num" placeholder="например, 1.23 или -1.2300" required>
+    <button type="submit">Получить</button>
+  </form>
+  <div id="out"></div>
+
+  <script>
+    function getDecimalFromString(raw) {
+      raw = raw.trim();
+      if (!/^-?\d+(\.\d+)?$/.test(raw)) {
+        throw new Error('Неверный формат числа');
+      }
+      const num = Number(raw);
+      const match = raw.match(/\.(\d+)$/);
+      const precision = match ? match[1].length : 0;
+      const frac = ((num % 1) + 1) % 1;
+      return Number(frac.toFixed(precision));
+    }
+
+    document.getElementById('decForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const raw = document.getElementById('num').value;
+      try {
+        const dec = getDecimalFromString(raw);
+        document.getElementById('out').textContent =
+          `getDecimal(${raw}) => ${dec}`;
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+  </script>
+</body>
+</html>

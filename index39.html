@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>showPrompt</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 40px; }
+    .overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.3); display: flex; align-items: center; justify-content: center; }
+    form { background: #fff; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+    input { width: 300px; }
+    .buttons { margin-top: 10px; text-align: right; }
+    button { margin-left: 10px; }
+  </style>
+</head>
+<body>
+  <button id="start">Показать диалог</button>
+  <script>
+    function showPrompt(html, callback) {
+      const overlay = document.createElement('div');
+      overlay.className = 'overlay';
+      const form = document.createElement('form');
+      form.innerHTML = `<div>${html}</div><input><div class="buttons"><button type="submit">OK</button><button type="button">ОТМЕНА</button></div>`;
+      overlay.append(form);
+      document.body.append(overlay);
+      const input = form.querySelector('input');
+      const cancelBtn = form.querySelector('button[type=button]');
+      input.focus();
+      let focusables = form.querySelectorAll('button, input');
+      let index = 0;
+      overlay.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          done(null);
+        } else if (e.key === 'Tab') {
+          e.preventDefault();
+          index = (index + (e.shiftKey ? -1 : 1) + focusables.length) % focusables.length;
+          focusables[index].focus();
+        }
+      });
+      form.onsubmit = e => { e.preventDefault(); done(input.value); };
+      cancelBtn.onclick = () => done(null);
+      function done(value) {
+        overlay.remove();
+        callback(value);
+      }
+    }
+    document.getElementById('start').onclick = () => {
+      showPrompt('Введите что-нибудь<br>... умное:', alert);
+    };
+  </script>
+</body>
+</html>

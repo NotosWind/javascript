@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Book setters</title>
+  <style>
+    body   { font-family: system-ui, sans-serif; margin: 40px; }
+    label  { display: block; margin: .5rem 0 .25rem; }
+    input  { font-size: 1rem; width: 220px; }
+    button { margin-top: .75rem; font-size: 1rem; }
+    #out   { margin-top: 1rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Геттеры и&nbsp;сеттеры Book</h1>
+  <form id="bookForm">
+    <label for="title">Название:</label>
+    <input type="text" id="title">
+    <label for="year">Год издания:</label>
+    <input type="number" id="year" step="1">
+    <label for="price">Цена:</label>
+    <input type="number" id="price" step="0.01">
+    <button type="submit">Создать</button>
+  </form>
+  <div id="out"></div>
+  <script>
+    class Book {
+      #price;
+      constructor(title, pubYear, price) {
+        this.title = title;
+        this._pubYear = pubYear;
+        this.price = price;
+      }
+      get title() { return this._title; }
+      set title(v) {
+        if (v === '') throw new Error('title');
+        this._title = v;
+      }
+      get pubYear() { return this._pubYear; }
+      set pubYear(v) {
+        if (v <= 0) throw new Error('pubYear');
+        this._pubYear = v;
+      }
+      get price() { return this.#price; }
+      set price(v) {
+        if (v <= 0) throw new Error('price');
+        this.#price = v;
+      }
+    }
+    document.getElementById('bookForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      try {
+        const b = new Book(
+          document.getElementById('title').value,
+          Number(document.getElementById('year').value),
+          Number(document.getElementById('price').value)
+        );
+        b.title = b.title + '!';
+        b.pubYear = b.pubYear + 1;
+        b.price = b.price + 1;
+        document.getElementById('out').textContent =
+          `${b.title} (${b.pubYear}) — ${b.price}`;
+      } catch (err) {
+        alert('Ошибка ввода');
+      }
+    });
+  </script>
+</body>
+</html>

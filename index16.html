@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>checkSpam(str)</title>
+  <style>
+    body   { font-family: system-ui, sans-serif; margin: 40px; }
+    label  { display: block; margin: .5rem 0 .25rem; }
+    input  { font-size: 1rem; width: 220px; }
+    button { margin-top: .75rem; font-size: 1rem; }
+    #out   { margin-top: 1rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Проверка на&nbsp;спам</h1>
+  <form id="spamForm">
+    <label for="str">Введите строку:</label>
+    <input type="text" id="str">
+    <button type="submit">Проверить</button>
+  </form>
+  <div id="out"></div>
+  <script>
+    function checkSpam(str) {
+      const s = str.toLowerCase();
+      return s.includes('viagra') || s.includes('xxx');
+    }
+    document.getElementById('spamForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const text = document.getElementById('str').value;
+      document.getElementById('out').textContent =
+        `checkSpam('${text}') => ${checkSpam(text)}`;
+    });
+  </script>
+</body>
+</html>

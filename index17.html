@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>truncate(str, maxlength)</title>
+  <style>
+    body   { font-family: system-ui, sans-serif; margin: 40px; }
+    label  { display: block; margin: .5rem 0 .25rem; }
+    input  { font-size: 1rem; width: 320px; }
+    button { margin-top: .75rem; font-size: 1rem; }
+    #out   { margin-top: 1rem; font-family: monospace; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>Усечение строки</h1>
+  <form id="trForm">
+    <label for="text">Строка:</label>
+    <input type="text" id="text">
+    <label for="len">Макс. длина:</label>
+    <input type="number" id="len" min="1" step="1" value="10">
+    <button type="submit">Усечь</button>
+  </form>
+  <div id="out"></div>
+  <script>
+    function truncate(str, maxlength) {
+      return str.length > maxlength
+        ? str.slice(0, maxlength - 1) + '\u2026'
+        : str;
+    }
+    document.getElementById('trForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const text = document.getElementById('text').value;
+      const len = Number(document.getElementById('len').value);
+      if (!Number.isInteger(len) || len < 1) {
+        alert('Некорректная длина');
+        return;
+      }
+      document.getElementById('out').textContent =
+        `truncate("${text}", ${len}) => "${truncate(text, len)}"`;
+    });
+  </script>
+</body>
+</html>

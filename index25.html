@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>isEmpty(obj) — интерактивный тест</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 40px; }
+    label { display: block; margin: 0.5rem 0 0.25rem; }
+    select, textarea { font-size: 1rem; width: 100%; }
+    textarea { height: 4rem; }
+    button { margin-top: 0.5rem; font-size: 1rem; padding: 0.4rem 0.8rem; }
+    #result { margin-top: 1rem; font-weight: 600; }
+    pre { background: #f6f8fa; padding: 0.5rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Проверка isEmpty(obj)</h1>
+  <form id="emptyForm">
+    <label for="example">Выберите пример объекта:</label>
+    <select id="example">
+      <option value="{}">{}</option>
+      <option value="{ [Symbol()]: true }">{[Symbol()]: true}</option>
+      <option value="define">Object.defineProperty({}, 'name', { value: 'John', })</option>
+      <option value="custom">Свой объект (ввести ниже)</option>
+    </select>
+
+    <label for="custom">Или введите свой объект (JS-литерал):</label>
+    <textarea id="custom" placeholder="например: { a: 1, b: 2 }"></textarea>
+
+    <button type="submit">Проверить</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script type="module">
+    /**
+     * Возвращает true, если obj не имеет собственных свойств (строковых и символьных).
+     * @param {object} obj
+     * @returns {boolean}
+     */
+    function isEmpty(obj) {
+      if (obj === null || typeof obj !== 'object') {
+        throw new TypeError('Ожидается объект');
+      }
+      return Reflect.ownKeys(obj).length === 0;
+    }
+
+    const form   = document.getElementById('emptyForm');
+    const select = document.getElementById('example');
+    const area   = document.getElementById('custom');
+    const out    = document.getElementById('result');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      let obj;
+      const sel = select.value;
+
+      try {
+        if (sel === 'define') {
+          obj = {};
+          Object.defineProperty(obj, 'name', { value: 'John' });
+        } else if (sel === 'custom') {
+          const code = area.value.trim();
+          if (!code) {
+            alert('Введите JS-литерал объекта в поле ниже.');
+            return;
+          }
+          obj = new Function('return ' + code)();
+        } else {
+          // варианты {} и {[Symbol()]: true}
+          obj = new Function('return ' + sel)();
+        }
+
+        const empty = isEmpty(obj);
+        const objLabel = sel === 'custom' ? area.value.trim() : sel;
+        out.innerHTML = `<pre>Объект: ${objLabel}\n\nisEmpty → ${empty}</pre>`;
+        console.log('isEmpty result:', empty, obj);
+      } catch (err) {
+        alert('Ошибка: ' + err.message);
+      }
+    });
+  </script>
+</body>
+</html>
