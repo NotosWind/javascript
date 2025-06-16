@@ -1,10 +1,10 @@
 "use strict";
 
 /**
- * Efficient exponentiation x^n.
- * @param {number} x - base value
- * @param {number} n - integer exponent
- * @returns {number} x raised to power n
+ * Эффективное возведение в степень x^n.
+ * @param {number} x - основание
+ * @param {number} n - целый показатель степени
+ * @returns {number} x в степени n
  */
 function pow(x, n) {
   if (!Number.isInteger(n)) {
@@ -24,9 +24,9 @@ function pow(x, n) {
 }
 
 /**
- * Sum of numbers from 1 to n.
- * @param {number} n - natural number
- * @returns {number} sum 1..n
+ * Сумма чисел от 1 до n.
+ * @param {number} n - натуральное число
+ * @returns {number} сумма 1..n
  */
 function sumTo(n) {
   n = Number(n);
@@ -37,9 +37,9 @@ function sumTo(n) {
 }
 
 /**
- * Check if a year is leap.
- * @param {number} year - year value
- * @returns {boolean} true if leap year
+ * Проверка, является ли год високосным.
+ * @param {number} year - значение года
+ * @returns {boolean} true если год високосный
  */
 function isLeapYear(year) {
   if (!Number.isInteger(year)) {
@@ -49,8 +49,8 @@ function isLeapYear(year) {
 }
 
 /**
- * Factorial using recursion and BigInt.
- * @param {number} n - integer ≥ 0
+ * Факториал с использованием рекурсии и BigInt.
+ * @param {number} n - целое число ≥ 0
  * @returns {bigint} n!
  */
 function factorial(n) {
@@ -61,9 +61,9 @@ function factorial(n) {
 }
 
 /**
- * Fast Fibonacci using doubling.
- * @param {number} n - integer ≥ 0
- * @returns {bigint} nth Fibonacci number
+ * Быстрое вычисление чисел Фибоначчи с использованием метода удвоения.
+ * @param {number} n - целое число ≥ 0
+ * @returns {bigint} n-ое число Фибоначчи
  */
 function fib(n) {
   function fibPair(k) {
@@ -80,9 +80,9 @@ function fib(n) {
 }
 
 /**
- * Create a comparator that compares to x.
- * @param {number} x - reference value
- * @returns {(y:number)=>boolean|null} comparison function
+ * Создает компаратор, сравнивающий с x.
+ * @param {number} x - эталонное значение
+ * @returns {(y:number)=>boolean|null} функция сравнения
  */
 function compare(x) {
   return function(y) {
@@ -96,18 +96,18 @@ function compare(x) {
 }
 
 /**
- * Sum arbitrary numbers.
- * @param {...number} nums numbers to sum
- * @returns {number} sum of arguments
+ * Суммирует произвольное количество чисел.
+ * @param {...number} nums числа для суммирования
+ * @returns {number} сумма аргументов
  */
 function sum(...nums) {
   return nums.reduce((acc, v) => acc + v, 0);
 }
 
 /**
- * Mark object with Symbol.for('blackSpot').
- * @param {Object} obj object to modify
- * @returns {Object} same object with blackSpot
+ * Помечает объект символом Symbol.for('blackSpot').
+ * @param {Object} obj объект для модификации
+ * @returns {Object} тот же объект с blackSpot
  */
 function addBlackSpot(obj) {
   if (obj === null || typeof obj !== 'object') {
@@ -118,9 +118,9 @@ function addBlackSpot(obj) {
 }
 
 /**
- * Get decimal fraction from string representation.
- * @param {string} raw number in string form
- * @returns {number} decimal part
+ * Получает десятичную дробь из строкового представления.
+ * @param {string} raw число в строковом виде
+ * @returns {number} десятичная часть
  */
 function getDecimalFromString(raw) {
   raw = raw.trim();
@@ -135,18 +135,18 @@ function getDecimalFromString(raw) {
 }
 
 /**
- * Normalize URL to https scheme.
- * @param {string} url input url
- * @returns {string} normalized url
+ * Нормализует URL к схеме https.
+ * @param {string} url входной url
+ * @returns {string} нормализованный url
  */
 function normalizeUrl(url) {
   return 'https://' + url.replace(/^https?:\/\//, '');
 }
 
 /**
- * Check text for spam words.
- * @param {string} str input text
- * @returns {boolean} true if spam found
+ * Проверяет текст на наличие спам-слов.
+ * @param {string} str входной текст
+ * @returns {boolean} true если найден спам
  */
 function checkSpam(str) {
   const s = str.toLowerCase();
@@ -154,10 +154,10 @@ function checkSpam(str) {
 }
 
 /**
- * Truncate string to maxlength with ellipsis.
- * @param {string} str source string
- * @param {number} maxlength max length
- * @returns {string} truncated string
+ * Обрезает строку до максимальной длины с многоточием.
+ * @param {string} str исходная строка
+ * @param {number} maxlength максимальная длина
+ * @returns {string} обрезанная строка
  */
 function truncate(str, maxlength) {
   return str.length > maxlength
@@ -166,9 +166,9 @@ function truncate(str, maxlength) {
 }
 
 /**
- * Convert dashed string to camelCase.
- * @param {string} str dashed string
- * @returns {string} camelCased
+ * Преобразует строку с дефисами в camelCase.
+ * @param {string} str строка с дефисами
+ * @returns {string} строка в camelCase
  */
 function camelize(str) {
   function ucFirst(s) {
@@ -178,27 +178,27 @@ function camelize(str) {
 }
 
 /**
- * Array of first n Fibonacci numbers starting from 0.
- * @param {number} n amount of numbers (natural)
- * @returns {bigint[]} fibonacci numbers
+ * Массив первых n чисел Фибоначчи, начиная с 0.
+ * @param {number} n количество чисел (натуральное)
+ * @returns {bigint[]} числа Фибоначчи
  */
 function fibs(n) {
   return Array.from({ length: n }, (_, i) => fib(i));
 }
 
 /**
- * Return copy of array sorted in reverse numeric order.
- * @param {number[]} arr array of numbers
- * @returns {number[]} sorted copy
+ * Возвращает копию массива, отсортированную в обратном числовом порядке.
+ * @param {number[]} arr массив чисел
+ * @returns {number[]} отсортированная копия
  */
 function arrReverseSorted(arr) {
   return [...arr].sort((a, b) => b - a);
 }
 
 /**
- * Get unique values from array preserving order.
- * @param {Array} arr input array
- * @returns {Array} array of unique values
+ * Получает уникальные значения из массива с сохранением порядка.
+ * @param {Array} arr входной массив
+ * @returns {Array} массив уникальных значений
  */
 function unique(arr) {
   return [...new Set(arr)];
